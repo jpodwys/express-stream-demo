@@ -17,7 +17,7 @@ app.get('/no-stream', function (req, res) {
   superagent
     .get('http://localhost:3000/data')
     .end(function (err, response){
-      res.render('no-stream', {layout: 'layout/no-stream'});
+      res.render('no-stream');
     }
   );
 });
