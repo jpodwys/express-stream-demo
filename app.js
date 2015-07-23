@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
 
 app.get('/data', function (req, res) {
   setTimeout(function(){
-    res.send(200);
+    res.sendStatus(200);
   }, 1000);
 });
 
