@@ -2,7 +2,7 @@
   "name": "express-stream",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./app.js",
   "dependencies": {
     "express": "4.13.1",
     "ejs": "2.3.3",
