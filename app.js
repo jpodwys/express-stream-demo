@@ -6,6 +6,7 @@ var app = express();
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+var PORT = process.env.PORT || 3000;
 
 app.get('/data', function (req, res) {
   setTimeout(function(){
@@ -15,7 +16,7 @@ app.get('/data', function (req, res) {
 
 app.get('/no-stream', function (req, res) {
   superagent
-    .get('http://localhost:3000/data')
+    .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
       res.render('no-stream');
     }
@@ -27,7 +28,7 @@ app.get('/stream', function(req, res){
     res.write(headerFile);
     var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
     superagent
-      .get('http://localhost:3000/data')
+      .get('http://localhost:' + PORT + '/data')
       .end(function (err, response){
         var html = template({});
         res.write(html);
@@ -40,7 +41,7 @@ app.get('/stream', function (req, res) {
   res.render('hello');
 });
 
-var server = app.listen(process.env.PORT || 3000, function () {
+var server = app.listen(PORT, function () {
   var host = server.address().address;
   var port = server.address().port;
 });
