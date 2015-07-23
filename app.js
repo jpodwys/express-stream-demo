@@ -23,9 +23,9 @@ app.get('/no-stream', function (req, res) {
 });
 
 app.get('/stream', function(req, res){
-    var headerFile = fs.readFileSync('/Users/jpodwys/repos/express-stream/views/stream-header.ejs', {encoding: 'utf-8'});
+    var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
     res.write(headerFile);
-    var template = ejs.compile(fs.readFileSync('/Users/jpodwys/repos/express-stream/views/stream-body.ejs', 'utf8'));
+    var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
     superagent
       .get('http://localhost:3000/data')
       .end(function (err, response){
