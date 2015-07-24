@@ -5,17 +5,18 @@ var ejs = require('ejs');
 var app = express();
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/assets/img'));
 
 var PORT = process.env.PORT || 3000;
-
-app.get('/', function (req, res) {
-  res.render('index');
-});
 
 app.get('/data', function (req, res) {
   setTimeout(function(){
     res.sendStatus(200);
   }, 1000);
+});
+
+app.get('/', function (req, res) {
+  res.render('index');
 });
 
 app.get('/no-stream', function (req, res) {
