@@ -8,6 +8,10 @@ app.set('view engine', 'ejs');
 
 var PORT = process.env.PORT || 3000;
 
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
 app.get('/data', function (req, res) {
   setTimeout(function(){
     res.sendStatus(200);
