@@ -29,18 +29,18 @@ app.get('/no-stream', function (req, res) {
 });
 
 app.get('/stream', function(req, res){
-    var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
-    res.write(headerFile);
-    var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
-    superagent
-      .get('http://localhost:' + PORT + '/data')
-      .end(function (err, response){
-        var html = template({});
-        res.write(html);
-        res.end();
-      }
-    );
-  });
+  var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
+  res.write(headerFile);
+  var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
+  superagent
+    .get('http://localhost:' + PORT + '/data')
+    .end(function (err, response){
+      var html = template({});
+      res.write(html);
+      res.end();
+    }
+  );
+});
 
 app.get('/stream', function (req, res) {
   res.render('hello');
