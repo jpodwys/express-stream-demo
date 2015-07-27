@@ -75,7 +75,7 @@ app.get('/stream2', resp.write(__dirname + '/views/stream-header.ejs', {encoding
 
 
 
-app.get('/stream3', resp.stream('stream-header'), function (req, res){
+app.get('/stream3', resp.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){

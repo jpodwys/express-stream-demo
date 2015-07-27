@@ -25,7 +25,7 @@ exports.write = function(path, encoding){
   }
 }
 
-exports.stream = function(template){
+exports.stream = function(){
   return function(req, res, next){
 
     res.render = function (view, options, callback) {
@@ -173,7 +173,7 @@ exports.stream = function(template){
       return this;
     };
 
-    res.render(template, {streamResponse: true});
+    res.render('stream-header', {streamResponse: true});
 
     next();
   }
