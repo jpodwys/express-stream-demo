@@ -20,6 +20,11 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+
+
+
+
+
 app.get('/no-stream', function (req, res) {
   superagent
     .get('http://localhost:' + PORT + '/data')
@@ -28,6 +33,11 @@ app.get('/no-stream', function (req, res) {
     }
   );
 });
+
+
+
+
+
 
 app.get('/stream', function (req, res){
   var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
@@ -43,6 +53,11 @@ app.get('/stream', function (req, res){
   );
 });
 
+
+
+
+
+
 app.get('/stream2', resp.write(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'}), function (req, res){
   var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
   superagent
@@ -55,9 +70,25 @@ app.get('/stream2', resp.write(__dirname + '/views/stream-header.ejs', {encoding
   );
 });
 
-app.get('/stream', function (req, res) {
-  res.render('hello');
+
+
+
+
+
+app.get('/stream3', resp.stream('stream-header'), function (req, res){
+  superagent
+    .get('http://localhost:' + PORT + '/data')
+    .end(function (err, response){
+      res.render('stream-body');
+    }
+  );
 });
+
+
+
+
+
+
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;
