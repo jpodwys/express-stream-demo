@@ -26,7 +26,7 @@ exports.write = function(path, encoding){
 }
 
 exports.stream = function(){
-  return function(req, res, next){
+  return function (req, res, next){
 
     res.render = function (view, options, callback) {
       var app = this.req.app;
