@@ -34,7 +34,12 @@ exports.stream = function(){
       var opts = options || {};
       var req = this.req;
       var self = this;
-      this.streamResponse = opts.streamResponse || false;
+      if(typeof opts.streamResponse === 'boolean'){
+        this.streamResponse = opts.streamResponse;
+      } else if(typeof this.streamResponse !== 'boolean') {
+        this.streamResponse = true;
+      }
+      this.isFinalChunk = (typeof opts.isFinalChunk === 'boolean') ? opts.isFinalChunk : true;
 
       // support callback function as second arg
       if (typeof options === 'function') {
@@ -173,7 +178,7 @@ exports.stream = function(){
       return this;
     };
 
-    res.render('stream-header', {streamResponse: true});
+    res.render('stream-header', {isFinalChunk: false});
 
     next();
   }
