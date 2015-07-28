@@ -34,11 +34,6 @@ exports.stream = function(){
       var opts = options || {};
       var req = this.req;
       var self = this;
-      if(typeof opts.streamResponse === 'boolean'){
-        this.streamResponse = opts.streamResponse;
-      } else if(typeof this.streamResponse !== 'boolean') {
-        this.streamResponse = true;
-      }
       this.isFinalChunk = (typeof opts.isFinalChunk === 'boolean') ? opts.isFinalChunk : true;
 
       // support callback function as second arg
@@ -162,12 +157,12 @@ exports.stream = function(){
 
       if (req.method === 'HEAD') {
         // skip body for HEAD
-        if(!this.streamResponse){
+        if(this.isFinalChunk){
           this.end();
         }
       } else {
         // respond
-        if(!this.streamResponse){
+        if(this.isFinalChunk){
           this.end(chunk, encoding);
         }
         else{
