@@ -1,22 +1,5 @@
 var fs = require('fs');
 
-var exports = module.exports;
-
-// exports.write = function(){
-//   return function(req, res, next){
-//     res._write = res.write;
-//     res.write = function(content, encoding, assets){
-//       if(assets){
-//         res._write('<html><head>' + assets + '</head><body><header style="background-color:#00FFFF">This is a header</header>');
-//       }
-//       else{
-//         res._write(content, encoding);
-//       }
-//     }
-//     next();
-//   }
-// }
-
 exports.write = function(path, encoding){
   return function(req, res, next){
     var headerFile = fs.readFileSync(path, encoding);
@@ -25,12 +8,19 @@ exports.write = function(path, encoding){
   }
 }
 
+var streamBefore = [];
+var streamAfter = [];
+
+exports.setStreamBefore = function(before){
+  streamBefore = before;
+}
+
+exports.setStreamAfter = function(after){
+  streamAfter = after;
+}
+
 exports.stream = function(){
   return function (req, res, next){
-
-    function setCharset(){}
-
-    function generateETag(){}
 
     res.set = function(){}
 
@@ -49,11 +39,16 @@ exports.stream = function(){
     res.end = function (chunk, encoding) {
       this.write(chunk, encoding);
       if(this.isFinalChunk){
+        for(var i = 0; i < streamAfter.length; i++){
+          res.stream(streamAfter[i]);
+        }
         this._end();
       }
     }
 
-    res.stream('stream-header');
+    for(var i = 0; i < streamBefore.length; i++){
+      res.stream(streamBefore[i]);
+    }
 
     next();
   }
