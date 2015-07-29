@@ -49,7 +49,6 @@ exports.stream = function(){
     res.end = function (chunk, encoding) {
       this.write(chunk, encoding);
       if(this.isFinalChunk){
-        //this.render('layout-stream-post-body');
         this._end();
       }
     }
