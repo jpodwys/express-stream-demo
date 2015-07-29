@@ -3,8 +3,8 @@ var fs = require('fs');
 var superagent = require('superagent');
 var ejs = require('ejs');
 var app = express();
-var resp = require('./middleware/resp');
-resp.setStreamBefore(['stream-header']);
+var stream = require('express-stream');
+stream.setStreamBefore(['stream-header']);
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
@@ -43,19 +43,7 @@ app.get('/stream', function (req, res){
   );
 });
 
-app.get('/stream2', resp.write(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'}), function (req, res){
-  var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
-  superagent
-    .get('http://localhost:' + PORT + '/data')
-    .end(function (err, response){
-      var html = template({});
-      res.write(html);
-      res.end();
-    }
-  );
-});
-
-app.get('/stream3', resp.stream(), function (req, res){
+app.get('/stream2', stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
