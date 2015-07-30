@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "4.13.1",
     "ejs": "2.3.3",
-    "express-stream": "0.2.1",
+    "express-stream": "0.2.2",
     "superagent": "1.2.0"
   },
   "scripts": {
