@@ -1,12 +1,12 @@
 {
-  "name": "express-stream",
+  "name": "express-stream-demo",
   "version": "1.0.0",
   "description": "",
   "main": "./app.js",
   "dependencies": {
     "express": "4.13.1",
     "ejs": "2.3.3",
-    "express-stream": "0.1.0",
+    "express-stream": "0.2.1",
     "superagent": "1.2.0"
   },
   "scripts": {

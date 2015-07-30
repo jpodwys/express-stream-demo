@@ -4,7 +4,6 @@ var superagent = require('superagent');
 var ejs = require('ejs');
 var app = express();
 var stream = require('express-stream');
-stream.setStreamBefore(['stream-header']);
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
@@ -42,6 +41,8 @@ app.get('/stream', function (req, res){
     }
   );
 });
+
+stream.streamBefore(['stream-header']);
 
 app.get('/stream2', stream.stream(), function (req, res){
   superagent
