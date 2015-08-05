@@ -42,9 +42,11 @@ app.get('/stream', function (req, res){
   );
 });
 
-stream.streamBefore(['stream-header']);
+stream.streamBefore('stream-header');
+stream.closeHeadOpenBody('stream-body');
+stream.streamAfter('stream-body');
 
-app.get('/stream2', stream.stream(), function (req, res){
+app.get('/stream2', stream.stream('stream-body'), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
