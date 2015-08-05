@@ -44,7 +44,7 @@ app.get('/stream', function (req, res){
 
 stream.streamBefore('stream-header');
 
-app.get('/stream2', stream.stream('stream-body'), function (req, res){
+app.get('/stream2', stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
