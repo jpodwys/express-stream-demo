@@ -9,15 +9,27 @@ app.set('view engine', 'ejs');
 
 var PORT = process.env.PORT || 3000;
 
+
+
+
+
 app.get('/data', function (req, res) {
   setTimeout(function(){
     res.sendStatus(200);
   }, 1000);
 });
 
+
+
+
+
 app.get('/', function (req, res) {
   res.render('index');
 });
+
+
+
+
 
 app.get('/no-stream', function (req, res) {
   superagent
@@ -27,6 +39,10 @@ app.get('/no-stream', function (req, res) {
     }
   );
 });
+
+
+
+
 
 app.get('/stream', function (req, res){
   var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
@@ -42,6 +58,10 @@ app.get('/stream', function (req, res){
   );
 });
 
+
+
+
+
 stream.streamBefore('stream-header');
 
 app.get('/stream2', stream.stream(), function (req, res){
@@ -52,6 +72,10 @@ app.get('/stream2', stream.stream(), function (req, res){
     }
   );
 });
+
+
+
+
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;
