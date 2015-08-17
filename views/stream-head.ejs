@@ -1,30 +1,8 @@
-<html>
-
-  <head>
-    <title>No Stream</title>
+    <title>Stream</title>
     <style>/*.loaded{display:none;}*/</style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  </head>
-
-  <body>
-
-    <header style="background-color:#00FFFF">
-      This is a header
-    </header>
-
-    <div  class="loaded">
-      <div class="no-layout">
-        <h1 class="font21 serif">Joe Podwys</h1>
-        <section class="basic">
-          <p>
-            I like to program.
-          </p>
-        </section>
-      </div>
-    </div>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -34,20 +12,3 @@
     <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    
-    <br/><br/><br/><br/>
-    <div id="load"></div>
-
-    <script>
-      window.addEventListener("load", function() {
-        setTimeout(function() {
-          var t = window.performance.timing;
-          var output = 'Load Time: ' + ((t.loadEventEnd - t.navigationStart) / 1000) + 'seconds';
-          document.getElementById('load').innerHTML = output;
-        }, 0);
-      }, false);
-    </script>
-
-  </body>
-
-</html>

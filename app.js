@@ -44,7 +44,7 @@ app.get('/no-stream', function (req, res) {
 
 
 
-app.get('/stream', function (req, res){
+app.get('/manual-stream', function (req, res){
   var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
   res.write(headerFile);
   var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
@@ -60,11 +60,14 @@ app.get('/stream', function (req, res){
 
 
 
+//One-time, app-wide express-stream config
+stream.openHtmlOpenHead(true);
+stream.closeHeadOpenBody('stream-close-head-open-body');
+stream.closeBodyCloseHtml(true);
+stream.streamBefore('stream-head');
 
-
-stream.streamBefore('stream-header');
-
-app.get('/stream2', stream.stream(), function (req, res){
+//Route using express-stream
+app.get('/express-stream', stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){

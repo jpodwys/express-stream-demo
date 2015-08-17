@@ -9,6 +9,15 @@
       </div>
     </div>
 
-  </body>
+    <br/><br/><br/><br/>
+    <div id="load"></div>
 
-</html>
+    <script>
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          var t = window.performance.timing;
+          var output = 'Load Time: ' + ((t.loadEventEnd - t.navigationStart) / 1000) + 'seconds';
+          document.getElementById('load').innerHTML = output;
+        }, 0);
+      }, false);
+    </script>
