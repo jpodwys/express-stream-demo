@@ -16,7 +16,9 @@
       window.addEventListener("load", function() {
         setTimeout(function() {
           var t = window.performance.timing;
-          var output = 'Load Time: ' + ((t.loadEventEnd - t.navigationStart) / 1000) + 'seconds';
+          var num = (t.loadEventEnd - t.navigationStart) / 1000;
+          var str = num.toString().substring(0, 4);
+          var output = 'Load Time: ' + str + ' seconds';
           document.getElementById('load').innerHTML = output;
         }, 0);
       }, false);
