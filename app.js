@@ -104,7 +104,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
 
 // stream.wrapJavascript(true);
 
-// app.get('/express-stream-pipe', cache, stream.pipe(), function (req, res){
+// app.get('/express-stream-pipe', cache, stream.pipe, function (req, res){
 //   res.stream('pipe');
 //   superagent
 //     .get('http://localhost:' + PORT + '/name')
@@ -119,7 +119,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
 
 
 
-app.get('/express-stream-pipe-view', cache, stream.pipe(), function (req, res){
+app.get('/express-stream-pipe-view', cache, stream.pipe, function (req, res){
   res.stream('pipe');
   superagent
     .get('http://localhost:' + PORT + '/name')
