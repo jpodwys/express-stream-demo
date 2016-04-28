@@ -4,8 +4,9 @@
   "description": "",
   "main": "./app.js",
   "dependencies": {
-    "express": "4.13.1",
+    "compression": "^1.6.1",
     "ejs": "2.3.3",
+    "express": "4.13.1",
     "express-stream": "git+https://github.com/jpodwys/express-stream.git#add-gzip-and-rewrite",
     "superagent": "1.1.0"
   },
@@ -18,7 +19,7 @@
     "url": "git+https://github.com/jpodwys/express-stream.git"
   },
   "engines": {
-     "node": "~0.10.0"
+    "node": "~0.10.0"
   },
   "author": "",
   "license": "ISC",

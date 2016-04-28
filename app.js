@@ -4,6 +4,8 @@ var superagent = require('superagent');
 var ejs = require('ejs');
 var app = express();
 var stream = require('express-stream');
+var compression = require('compression');
+app.use(compression({threshold: '2kb'}));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 var PORT = process.env.PORT || 3000;
