@@ -94,6 +94,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
       res.render('stream-body');
+      res.end();
     }
   );
 });
@@ -110,7 +111,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
 //     .get('http://localhost:' + PORT + '/name')
 //     .end(function (err, response){
 //       res.pipe("$('.font21.serif').html('Joe Podwys');");
-//       res.close();
+//       res.end();
 //     }
 //   );
 // });
@@ -125,7 +126,7 @@ app.get('/express-stream-pipe-view', cache, stream.pipe, function (req, res){
     .get('http://localhost:' + PORT + '/name')
     .end(function (err, response){
       res.stream('pipe-view', {name: response.body.name});
-      res.close();
+      res.end();
     }
   );
 });
