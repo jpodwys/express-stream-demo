@@ -6,8 +6,8 @@
   "dependencies": {
     "express": "4.13.1",
     "ejs": "2.3.3",
-    "express-stream": "0.8.0",
-    "superagent": "1.2.0"
+    "express-stream": "git+https://github.com/jpodwys/express-stream.git#add-gzip-and-rewrite",
+    "superagent": "1.1.0"
   },
   "scripts": {
     "start": "node app.js",
