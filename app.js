@@ -93,7 +93,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
-      res.render('stream-body');
+      res.stream('stream-body');
       res.end();
     }
   );
