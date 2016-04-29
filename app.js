@@ -5,11 +5,6 @@ var ejs = require('ejs');
 var app = express();
 var stream = require('express-stream');
 var compression = require('compression');
-app.use(compression({threshold: '2kb'}));
-app.use(function (req, res, next) {
-  res.setHeader('Content-Type', 'text/html');
-  next();
-});
 app.use(function cache(req, res, next) {
   res.setHeader('Cache-Control', 'public, max-age=5000');
   next();
@@ -18,7 +13,10 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 var PORT = process.env.PORT || 3000;
 
-
+function contentType(req, res, next) {
+  res.setHeader('Content-Type', 'text/html');
+  next();
+}
 
 
 
@@ -50,7 +48,7 @@ app.get('/', function (req, res) {
 
 
 
-app.get('/no-stream', function (req, res) {
+app.get('/no-stream', contentType, compression({threshold: '2kb'}), function (req, res) {
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
@@ -63,15 +61,17 @@ app.get('/no-stream', function (req, res) {
 
 
 
-app.get('/manual-stream', function (req, res){
+app.get('/manual-stream', contentType, compression({threshold: '2kb'}), function (req, res){
   var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
   res.write(headerFile);
+  res.flush();
   var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
       var html = template({});
       res.write(html);
+      res.flush();
       res.end();
     }
   );
@@ -88,7 +88,7 @@ stream.closeBodyCloseHtml(true);
 stream.streamBefore('stream-head');
 
 //Route using express-stream
-app.get('/express-stream', stream.stream(), function (req, res){
+app.get('/express-stream', contentType, compression({threshold: '2kb'}), stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
@@ -119,7 +119,8 @@ app.get('/express-stream', stream.stream(), function (req, res){
 
 
 
-app.get('/express-stream-pipe-view', stream.pipe, function (req, res){
+app.get('/express-stream-pipe-view', compression({threshold: '2kb'}), stream.pipe, function (req, res){
+  res.setHeader('Content-Type', 'text/html');
   res.stream('pipe');
   superagent
     .get('http://localhost:' + PORT + '/name')
