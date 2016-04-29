@@ -104,12 +104,12 @@ app.get('/express-stream', contentType, compression({threshold: '2kb'}), stream.
 
 // stream.wrapJavascript(true);
 
-// app.get('/express-stream-pipe', stream.pipe, function (req, res){
+// app.get('/express-stream-pipe', stream.pipe(), function (req, res){
 //   res.stream('pipe');
 //   superagent
 //     .get('http://localhost:' + PORT + '/name')
 //     .end(function (err, response){
-//       res.pipe("$('.font21.serif').html('Joe Podwys');");
+//       res.streamText("$('.font21.serif').html('Joe Podwys');");
 //       res.end();
 //     }
 //   );
@@ -119,7 +119,7 @@ app.get('/express-stream', contentType, compression({threshold: '2kb'}), stream.
 
 
 
-app.get('/express-stream-pipe-view', compression({threshold: '2kb'}), stream.pipe, function (req, res){
+app.get('/express-stream-pipe-view', compression({threshold: '2kb'}), stream.pipe(), function (req, res){
   res.setHeader('Content-Type', 'text/html');
   res.stream('pipe');
   superagent
