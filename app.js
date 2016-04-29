@@ -6,20 +6,17 @@ var app = express();
 var stream = require('express-stream');
 var compression = require('compression');
 app.use(compression({threshold: '2kb'}));
+app.use(function (req, res, next) {
+  res.setHeader('Content-Type', 'text/html');
+  next();
+});
+app.use(function cache(req, res, next) {
+  res.setHeader('Cache-Control', 'public, max-age=5000');
+  next();
+});
 app.set('views', './views');
 app.set('view engine', 'ejs');
 var PORT = process.env.PORT || 3000;
-
-
-
-
-
-function cache(req, res, next) {
-  res.set({
-    'Cache-Control': 'public, max-age=5000'
-  });
-  next();
-}
 
 
 
@@ -53,7 +50,7 @@ app.get('/', function (req, res) {
 
 
 
-app.get('/no-stream', cache, function (req, res) {
+app.get('/no-stream', function (req, res) {
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
@@ -66,7 +63,7 @@ app.get('/no-stream', cache, function (req, res) {
 
 
 
-app.get('/manual-stream', cache, function (req, res){
+app.get('/manual-stream', function (req, res){
   var headerFile = fs.readFileSync(__dirname + '/views/stream-header.ejs', {encoding: 'utf-8'});
   res.write(headerFile);
   var template = ejs.compile(fs.readFileSync(__dirname + '/views/stream-body.ejs', 'utf8'));
@@ -91,7 +88,7 @@ stream.closeBodyCloseHtml(true);
 stream.streamBefore('stream-head');
 
 //Route using express-stream
-app.get('/express-stream', cache, stream.stream(), function (req, res){
+app.get('/express-stream', stream.stream(), function (req, res){
   superagent
     .get('http://localhost:' + PORT + '/data')
     .end(function (err, response){
@@ -107,7 +104,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
 
 // stream.wrapJavascript(true);
 
-// app.get('/express-stream-pipe', cache, stream.pipe, function (req, res){
+// app.get('/express-stream-pipe', stream.pipe, function (req, res){
 //   res.stream('pipe');
 //   superagent
 //     .get('http://localhost:' + PORT + '/name')
@@ -122,7 +119,7 @@ app.get('/express-stream', cache, stream.stream(), function (req, res){
 
 
 
-app.get('/express-stream-pipe-view', cache, stream.pipe, function (req, res){
+app.get('/express-stream-pipe-view', stream.pipe, function (req, res){
   res.stream('pipe');
   superagent
     .get('http://localhost:' + PORT + '/name')
