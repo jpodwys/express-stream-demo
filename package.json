@@ -7,7 +7,7 @@
     "compression": "^1.6.1",
     "ejs": "2.3.3",
     "express": "4.13.1",
-    "express-stream": "git+https://github.com/jpodwys/express-stream.git#add-gzip-and-rewrite",
+    "express-stream": "git+https://github.com/jpodwys/express-stream.git#1.0.0-rc.1",
     "superagent": "1.1.0"
   },
   "scripts": {
