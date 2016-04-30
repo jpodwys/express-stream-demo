@@ -19,7 +19,7 @@
     "url": "git+https://github.com/jpodwys/express-stream.git"
   },
   "engines": {
-    "node": "~0.10.0"
+    "node": "4.x.x"
   },
   "author": "",
   "license": "ISC",
